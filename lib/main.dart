@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sept15_crickbuzz_developer/provider/MatchProvider.dart';
-import 'package:sept15_crickbuzz_developer/provider/TeamProvider.dart';
-import 'package:sept15_crickbuzz_developer/screens/BattingPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:sept15_crickbuzz_developer/screens/SeriesDataScreen.dart';
 

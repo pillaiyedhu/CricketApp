@@ -1,9 +1,6 @@
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:search_choices/search_choices.dart';
-import 'package:sept15_crickbuzz_developer/provider/MatchProvider.dart';
-import 'package:sept15_crickbuzz_developer/screens/TeamDataPage.dart';
 import 'package:sept15_crickbuzz_developer/screens/testpage.dart';
 import 'package:sept15_crickbuzz_developer/services/MatchScreenService.dart';
 import 'package:sept15_crickbuzz_developer/services/TeamService.dart';

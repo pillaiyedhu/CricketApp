@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:search_choices/search_choices.dart';
-import 'package:sept15_crickbuzz_developer/provider/MatchProvider.dart';
+
 
 class TeamDataPage extends StatefulWidget {
   // List<dynamic> team1Players;

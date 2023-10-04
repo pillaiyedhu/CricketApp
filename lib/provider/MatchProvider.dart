@@ -23,6 +23,12 @@ class MatchProvider extends ChangeNotifier {
   int runsBowler = 0;
   int bowlerWickets = 0;
 
+  int batsman1_4s = 0;
+  int batsman2_4s = 0;
+
+  int batsman1_6s = 0;
+  int batsman2_6s = 0;
+
   int ballsPlayer1 = 0;
   int ballsPlayer2 = 0;
   int ballsBowler = 0;
@@ -72,6 +78,8 @@ class MatchProvider extends ChangeNotifier {
       String mainId, String matchId, String batsman1) async {
     ballsPlayer1 = 0;
     runsBatsman1 = 0;
+    batsman1_4s = 0;
+    batsman1_6s = 0;
     firebaseFirestore
         .collection('series_new')
         .doc(mainId)
@@ -82,7 +90,9 @@ class MatchProvider extends ChangeNotifier {
         .update({
       'batsman1_name': batsman1,
       'batsman1_runs': runsBatsman1,
-      'batsman1_balls': ballsPlayer1
+      'batsman1_balls': ballsPlayer1,
+      'batsman1_4s':batsman1_4s,
+      'batsman1_6s':batsman1_6s
     });
 
     notifyListeners();
@@ -92,6 +102,8 @@ class MatchProvider extends ChangeNotifier {
       String mainId, String matchId, String batsman2) async {
     ballsPlayer2 = 0;
     runsBatsman2 = 0;
+    batsman2_4s = 0;
+    batsman2_6s = 0;
     firebaseFirestore
         .collection('series_new')
         .doc(mainId)
@@ -102,7 +114,9 @@ class MatchProvider extends ChangeNotifier {
         .update({
       'batsman2_name': batsman2,
       'batsman2_runs': runsBatsman2,
-      'batsman2_balls': ballsPlayer2
+      'batsman2_balls': ballsPlayer2,
+      'batsman2_4s':batsman2_4s,
+      'batsman2_6s':batsman2_6s
     });
 
     notifyListeners();
@@ -323,9 +337,9 @@ class MatchProvider extends ChangeNotifier {
         .collection('match_details')
         .doc('match_details')
         .update({
-      'teamRuns': teamRuns,
-      'runsBatsman2': runsBatsman2,
-      'bowlerRuns': runsBowler
+      'team_runs': teamRuns,
+      'batsman2_runs': runsBatsman2,
+      'bowler_runs': runsBowler
     });
 
     notifyListeners();
@@ -344,8 +358,8 @@ class MatchProvider extends ChangeNotifier {
         .collection('match_details')
         .doc('match_details')
         .update({
-      'ballsBatsman1': ballsPlayer1,
-      'ballsBowler': ballsBowler,
+      'batsman1_balls': ballsPlayer1,
+      'bowler_balls': ballsBowler,
     });
 
     notifyListeners();
@@ -362,8 +376,73 @@ class MatchProvider extends ChangeNotifier {
         .collection('match_details')
         .doc('match_details')
         .update({
-      'ballsBatsman2': ballsPlayer1,
-      'ballsBowler': ballsBowler,
+      'batsman2_balls': ballsPlayer1,
+      'bowler_balls': ballsBowler,
+    });
+
+    notifyListeners();
+  }
+
+  //6s and 4s updation at batsmans side.........................................
+  Future<void> update4sforPlayer1(String mainId, String matchId) async {
+    batsman1_4s = batsman1_4s + 1;
+    await firebaseFirestore
+        .collection('series_new')
+        .doc(mainId)
+        .collection('matches')
+        .doc(matchId)
+        .collection('match_details')
+        .doc('match_details')
+        .update({
+      'batsman1_4s': batsman1_4s,
+    });
+
+    notifyListeners();
+  }
+
+  Future<void> update4sforPlayer2(String mainId, String matchId) async {
+    batsman2_4s = batsman2_4s + 1;
+    await firebaseFirestore
+        .collection('series_new')
+        .doc(mainId)
+        .collection('matches')
+        .doc(matchId)
+        .collection('match_details')
+        .doc('match_details')
+        .update({
+      'batsman2_4s': batsman2_4s,
+    });
+
+    notifyListeners();
+  }
+
+  Future<void> update6sforPlayer1(String mainId, String matchId) async {
+    batsman1_6s = batsman1_6s + 1;
+    await firebaseFirestore
+        .collection('series_new')
+        .doc(mainId)
+        .collection('matches')
+        .doc(matchId)
+        .collection('match_details')
+        .doc('match_details')
+        .update({
+      'batsman1_6s': batsman1_6s,
+    });
+
+    notifyListeners();
+  }
+
+  Future<void> update6sforPlayer2(String mainId, String matchId) async {
+    batsman2_6s = batsman2_6s + 1;
+    await firebaseFirestore
+        .collection('series_new')
+        .doc(mainId)
+        .collection('matches')
+        .doc(matchId)
+        .collection('match_details')
+        .doc('match_details')
+        .update({
+      'batsman2_6s': batsman2_6s,
     });
 
     notifyListeners();
@@ -383,7 +462,7 @@ class MatchProvider extends ChangeNotifier {
         .doc(matchId)
         .collection('match_details')
         .doc('match_details')
-        .update({'teamRuns': teamRuns, 'bowlerRuns': runsBowler});
+        .update({'team_runs': teamRuns, 'bowler_runs': runsBowler});
 
     notifyListeners();
   }
@@ -400,7 +479,7 @@ class MatchProvider extends ChangeNotifier {
         .doc(matchId)
         .collection('match_details')
         .doc('match_details')
-        .update({'teamRuns': teamRuns, 'bowlerRuns': runsBowler});
+        .update({'team_runs': teamRuns, 'bowler_runs': runsBowler});
 
     notifyListeners();
   }
@@ -417,7 +496,7 @@ class MatchProvider extends ChangeNotifier {
         .doc(matchId)
         .collection('match_details')
         .doc('match_details')
-        .update({'ballsBowler': ballsBowler, 'ballsPlayer1': ballsPlayer1});
+        .update({'bowler_balls': ballsBowler, 'batsman1_balls': ballsPlayer1});
 
     notifyListeners();
   }
@@ -433,7 +512,7 @@ class MatchProvider extends ChangeNotifier {
         .doc(matchId)
         .collection('match_details')
         .doc('match_details')
-        .update({'ballsBowler': ballsBowler, 'ballsPlayer2': ballsPlayer2});
+        .update({'bowler_balls': ballsBowler, 'batsman2_balls': ballsPlayer2});
 
     notifyListeners();
   }
@@ -452,9 +531,9 @@ class MatchProvider extends ChangeNotifier {
         .collection('match_details')
         .doc('match_details')
         .update({
-      'bowlerWickets': bowlerWickets,
-      'teamWickets': teamWickets,
-      'ballsBowler': ballsBowler
+      'bowler_wickets': bowlerWickets,
+      'team_wickets': teamWickets,
+      'bowler_balls': ballsBowler
     });
 
     notifyListeners();

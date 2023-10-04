@@ -5,6 +5,7 @@ import 'package:search_choices/search_choices.dart';
 import 'package:sept15_crickbuzz_developer/provider/MatchProvider.dart';
 import 'package:sept15_crickbuzz_developer/services/MatchScreenService.dart';
 
+// ignore: must_be_immutable
 class TestPage extends StatefulWidget {
   //All my fields to be taken from other side
   String mainId;
@@ -25,6 +26,7 @@ class _TestPageState extends State<TestPage> {
   String batsman1 = 'Player 1';
   String batsman2 = 'Player 2';
   String bowler = 'Player ';
+  String commentry = 'Match is yet to start..';
 
   int player1runs = 0;
   int player2runs = 0;
@@ -64,6 +66,18 @@ class _TestPageState extends State<TestPage> {
                           )),
                     ),
                   ),
+                  Container(
+                      height: 100,
+                      width: 500,
+                      child: Card(
+                        color: const Color.fromARGB(255, 240, 235, 235),
+                        shadowColor: Colors.black,
+                        elevation: 4,
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: Text(commentry),
+                        ),
+                      ))
                 ],
               ),
               Row(
@@ -103,8 +117,10 @@ class _TestPageState extends State<TestPage> {
                                         matchProvider.runsBatsman1.toString())),
                                     DataCell(Text(
                                         matchProvider.ballsPlayer1.toString())),
-                                    DataCell(Text("0")),
-                                    DataCell(Text("0")),
+                                    DataCell(Text(
+                                        matchProvider.batsman1_4s.toString())),
+                                    DataCell(Text(
+                                        matchProvider.batsman1_6s.toString())),
                                   ]),
                                   DataRow(cells: <DataCell>[
                                     DataCell(
@@ -114,15 +130,17 @@ class _TestPageState extends State<TestPage> {
                                         matchProvider.runsBatsman2.toString())),
                                     DataCell(Text(
                                         matchProvider.ballsPlayer2.toString())),
-                                    DataCell(Text("0")),
-                                    DataCell(Text("0")),
+                                    DataCell(Text(
+                                        matchProvider.batsman2_4s.toString())),
+                                    DataCell(Text(
+                                        matchProvider.batsman2_6s.toString())),
                                   ])
                                 ]),
                               ])),
                     ),
                   ),
 
-                  //Batsman Selection ............................................
+                  //Batsman Selection ..........................................
                   StreamBuilder(
                     stream: FirebaseFirestore.instance
                         .collection('series_new')
@@ -143,7 +161,7 @@ class _TestPageState extends State<TestPage> {
                             elevation: 4,
                             child: Column(
                               children: [
-                                //Select the 1st Batsman..............................
+                                //Select the 1st Batsman........................
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
@@ -266,6 +284,7 @@ class _TestPageState extends State<TestPage> {
                                   onTap: () {
                                     if (matchProvider.isSelectedPlayer1 ==
                                         true) {
+                                      commentry = '$batsman1 goes for a single';
                                       matchProvider.updatePlayer1RunsBy1(
                                           widget.mainId, widget.matchId);
                                       matchProvider.incrementBallsPlayer1(
@@ -273,6 +292,7 @@ class _TestPageState extends State<TestPage> {
                                     }
                                     if (matchProvider.isSelectedPlayer2 ==
                                         true) {
+                                      commentry = '$batsman2 goes for a single';
                                       matchProvider.updatePlayer2RunsBy1(
                                           widget.mainId, widget.matchId);
                                       matchProvider.incrementBallsPlayer2(
@@ -299,6 +319,7 @@ class _TestPageState extends State<TestPage> {
                                   onTap: () {
                                     if (matchProvider.isSelectedPlayer1 ==
                                         true) {
+                                      commentry = '$batsman1 goes for double';
                                       matchProvider.updatePlayer1RunsBy2(
                                           widget.mainId, widget.matchId);
                                       matchProvider.incrementBallsPlayer1(
@@ -306,6 +327,7 @@ class _TestPageState extends State<TestPage> {
                                     }
                                     if (matchProvider.isSelectedPlayer2 ==
                                         true) {
+                                      commentry = '$batsman2 goes for double';
                                       matchProvider.updatePlayer2RunsBy2(
                                           widget.mainId, widget.matchId);
                                       matchProvider.incrementBallsPlayer2(
@@ -333,6 +355,8 @@ class _TestPageState extends State<TestPage> {
                                   onTap: () {
                                     if (matchProvider.isSelectedPlayer1 ==
                                         true) {
+                                      commentry =
+                                          '$batsman1 brilliantly takes 3 runs..';
                                       matchProvider.updatePlayer1RunsBy3(
                                           widget.mainId, widget.matchId);
                                       matchProvider.incrementBallsPlayer1(
@@ -340,6 +364,8 @@ class _TestPageState extends State<TestPage> {
                                     }
                                     if (matchProvider.isSelectedPlayer2 ==
                                         true) {
+                                      commentry =
+                                          '$batsman1 brilliantly takes 3 runs..';
                                       matchProvider.updatePlayer2RunsBy3(
                                           widget.mainId, widget.matchId);
                                       matchProvider.incrementBallsPlayer2(
@@ -371,16 +397,22 @@ class _TestPageState extends State<TestPage> {
                                   onTap: () {
                                     if (matchProvider.isSelectedPlayer1 ==
                                         true) {
+                                      commentry = '$batsman1 hits a boundary';
                                       matchProvider.updatePlayer1RunsBy4(
                                           widget.mainId, widget.matchId);
                                       matchProvider.incrementBallsPlayer1(
                                           widget.mainId, widget.matchId);
+                                      matchProvider.update4sforPlayer1(
+                                          widget.mainId, widget.matchId);
                                     }
                                     if (matchProvider.isSelectedPlayer2 ==
                                         true) {
+                                      commentry = '$batsman2 hits a boundary';
                                       matchProvider.updatePlayer2RunsBy4(
                                           widget.mainId, widget.matchId);
                                       matchProvider.incrementBallsPlayer2(
+                                          widget.mainId, widget.matchId);
+                                      matchProvider.update4sforPlayer2(
                                           widget.mainId, widget.matchId);
                                     }
                                   },
@@ -404,16 +436,22 @@ class _TestPageState extends State<TestPage> {
                                   onTap: () {
                                     if (matchProvider.isSelectedPlayer1 ==
                                         true) {
+                                      commentry = '$batsman1 hits a huge six';
                                       matchProvider.updatePlayer1RunsBy6(
                                           widget.mainId, widget.matchId);
                                       matchProvider.incrementBallsPlayer1(
                                           widget.mainId, widget.matchId);
+                                      matchProvider.update6sforPlayer1(
+                                          widget.mainId, widget.matchId);
                                     }
                                     if (matchProvider.isSelectedPlayer2 ==
                                         true) {
+                                      commentry = '$batsman2 hits a huge six';
                                       matchProvider.updatePlayer2RunsBy6(
                                           widget.mainId, widget.matchId);
                                       matchProvider.incrementBallsPlayer2(
+                                          widget.mainId, widget.matchId);
+                                      matchProvider.update6sforPlayer2(
                                           widget.mainId, widget.matchId);
                                     }
                                   },
@@ -551,6 +589,7 @@ class _TestPageState extends State<TestPage> {
 
                                 ElevatedButton(
                                     onPressed: () {
+                                      
                                       matchScreenService.postMatchDetails(
                                           widget.team1Name,
                                           widget.team2Name,
@@ -567,8 +606,9 @@ class _TestPageState extends State<TestPage> {
                                           0,
                                           0,
                                           0);
+                                      commentry = 'Match Started';
                                     },
-                                    child: Text('Submit data'))
+                                    child: Text('Match Start'))
                               ],
                             )),
                       );
@@ -592,6 +632,7 @@ class _TestPageState extends State<TestPage> {
                               children: [
                                 InkWell(
                                   onTap: () {
+                                    commentry = '$bowler takes a huge wicket';
                                     if (matchProvider.isSelectedPlayer1 ==
                                         true) {
                                       batsman1 = 'Wicket......';
@@ -601,7 +642,7 @@ class _TestPageState extends State<TestPage> {
                                             .isSelectedPlayer2 ==
                                         true) {
                                       batsman2 = 'Wicket......';
-                                      
+
                                       matchProvider.wicket(
                                           widget.mainId, widget.matchId);
                                     }
@@ -626,6 +667,8 @@ class _TestPageState extends State<TestPage> {
 
                                 InkWell(
                                   onTap: () {
+                                    commentry =
+                                        'Brilliant bowling skills by $bowler';
                                     if (matchProvider.isSelectedPlayer1 ==
                                         true) {
                                       matchProvider.dotBallPlayer1(
@@ -664,6 +707,7 @@ class _TestPageState extends State<TestPage> {
                                 //No Ball 2 UI
                                 InkWell(
                                   onTap: () {
+                                    commentry = '$bowler is under pressure';
                                     matchProvider.noBall(
                                       widget.mainId,
                                       widget.matchId,
@@ -688,6 +732,7 @@ class _TestPageState extends State<TestPage> {
                                 //Wide Ball 3 UI
                                 InkWell(
                                   onTap: () {
+                                    commentry = '$bowler bowls a wide ball';
                                     matchProvider.wideBall(
                                       widget.mainId,
                                       widget.matchId,

@@ -1,9 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:sept15_crickbuzz_developer/provider/MatchProvider.dart';
 import 'package:sept15_crickbuzz_developer/screens/AddSeriesMatchesPage.dart';
-import 'package:sept15_crickbuzz_developer/screens/TeamDataPage.dart';
 import 'package:sept15_crickbuzz_developer/screens/testpage.dart';
 
 class MatchesDataScreen extends StatefulWidget {
